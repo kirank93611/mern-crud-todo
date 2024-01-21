@@ -10,7 +10,9 @@ require("dotenv").config();
 
 */
 
-mongoose.connect(process.env.DB_URL_MONGO);
+mongoose.connect(
+  "mongodb+srv://kiran:kiraniit1234@cluster0.021uocl.mongodb.net/todo"
+);
 
 mongoose.connection.once("open", () => {
   console.log("DB Connected.");
