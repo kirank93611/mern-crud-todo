@@ -7,6 +7,7 @@ require("dotenv").config();
     description:string,
     completed:Boolean
 }
+
 */
 
 mongoose.connect(process.env.DB_URL_MONGO);
