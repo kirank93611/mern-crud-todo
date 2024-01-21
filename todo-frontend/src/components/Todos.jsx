@@ -27,11 +27,12 @@ export function Todos({ todos }) {
             <h2>{todo.description}</h2>
 
             <button
-              onClick={() => {
+              onClick={({ todos }) => {
+                console.log(JSON.stringify({ todos }));
                 fetch("http://localhost:3000/completed", {
                   method: "PUT",
                   body: JSON.stringify({
-                   todo._id,
+                    id: todo._id,
                   }),
                   headers: {
                     "Content-type": "application/json",
