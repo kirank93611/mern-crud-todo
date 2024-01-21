@@ -1,21 +1,48 @@
+// import { CreateTodo } from "./components/CreateTodo";
+// import { Todos } from "./components/Todos";
+// import "./App.css";
+// import { useState, useEffect } from "react";
+
+// function App() {
+//   const [todos, setTodos] = useState([]);
+//   useEffect(() => {
+//     fetch("http://localhost:3000/todos")
+//       .then((res) => {
+//         return res.json();
+//       })
+//       .then((data) => {
+//         // console.log(data);
+//         setTodos(data);
+//       });
+//   }, []);
+//   console.log(todos);
+//   return (
+//     <div>
+//       <CreateTodo></CreateTodo>
+//       <Todos todos={todos}></Todos>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 import { CreateTodo } from "./components/CreateTodo";
 import { Todos } from "./components/Todos";
-import "./App.css";
-import { useState, useEffect } from "react";
 
+// useEffect hook
 function App() {
-  // const [todos, setTodos] = useState([]);
-  // useEffect(() => {
-  //   fetch("http://localhost/todos")
-  //     .then((res) => {
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       console.log(data);
-  //       setTodos(data);
-  //     });
-  // }, []);
   const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:3000/todos").then(async function (res) {
+      const json = await res.json();
+      setTodos(json.todos);
+    });
+  }, []);
+
   return (
     <div>
       <CreateTodo></CreateTodo>
