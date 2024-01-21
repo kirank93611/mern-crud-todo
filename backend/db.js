@@ -1,5 +1,5 @@
-const mongoose=require('mongoose');
-
+const mongoose = require("mongoose");
+const { boolean } = require("zod");
 
 /*
 {
@@ -8,19 +8,28 @@ const mongoose=require('mongoose');
     completed:Boolean
 }
 */
-mongoose.connect("mongodb+srv://kiran:Kiraniit%404321@cluster0.021uocl.mongodb.net/");
-console.log("database connected");
+mongoose.connection.once("once", () => {
+  console.log("database connected");
+});
+
+mongoose.connect(
+  "mongodb+srv://kiran:kiraniit1234@cluster0.021uocl.mongodb.net/todo"
+);
+
 //mongodb url handy
 //
 
-const todoSchema=mongoose.Schema({
-    title:String,
-    description:String,
-    completed:Boolean
-})
+const todoSchema = mongoose.Schema({
+  title: String,
+  description: String,
+  completed: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-const todo=mongoose.model('todos',todoSchema);
+const todo = mongoose.model("todos", todoSchema);
 
-module.exports={
-todo
-}
+module.exports = {
+  todo,
+};

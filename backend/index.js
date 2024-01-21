@@ -2,12 +2,13 @@
 //wit express.json() middleware
 const express = require("express");
 const { createTodo, updateTodo } = require("./types");
-const { create } = require("domain");
-const { parse } = require("path");
 const app = express();
 const { todo } = require("./db");
+const cors = require("cors");
 
+const PORT = 3000;
 app.use(express.json());
+app.use(cors());
 
 app.post("/todo", async function (req, res) {
   const createPayload = req.body;
@@ -18,17 +19,18 @@ app.post("/todo", async function (req, res) {
     });
     return;
   }
-
-  await todo.create({
+  //db call to create a todo
+  const createdtodo = await todo.create({
     title: createPayload.title,
     description: createPayload.description,
     completed: false,
   });
+  res.status(200).json({ msg: req.body });
   // put it in mongodb
 });
 
 app.get("/todos", async function (req, res) {
-  const todo = await todo.find();
+  const todos = await todo.find({});
   console.log(todos); //promise
 
   res.json({
@@ -57,4 +59,8 @@ app.put("/completed", async function (req, res) {
   res.json({
     msg: "Todo marked as completed",
   });
+});
+
+app.listen(PORT, () => {
+  console.log("Connected to node server");
 });
